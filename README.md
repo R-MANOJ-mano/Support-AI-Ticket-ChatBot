@@ -210,10 +210,3 @@ not a bug - a live deployment would just swap it for `datetime.now()`.
   exact SQL filters, so "find tickets like this one" isn't something it can do. That's a job for a
   RAG/embedding layer, which just isn't needed for the aggregation-style questions this dataset
   mostly gets asked.
-
-## What I'd improve with more time
-
-- Stream the answer into the UI token by token instead of waiting for the whole response.
-- A small eval set (question → expected SQL) to catch prompt regressions.
-- Make the anomaly thresholds configurable from the UI instead of hard-coded constants.
-- Basic auth / rate limiting before this went anywhere near a real deployment.
