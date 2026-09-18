@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    image: support-ticket-ai
+    container_name: ticket-ai
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    restart: unless-stopped

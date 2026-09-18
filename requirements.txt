@@ -1,0 +1,9 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pandas==2.3.1
+python-dotenv==1.1.1
+jinja2==3.1.4
+python-multipart==0.0.9
+langchain-groq==0.3.5
+langchain-core==0.3.68
+pydantic==2.11.7

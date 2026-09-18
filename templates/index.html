@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Ticket AI System</title>
+  <script>
+    // Applied before CSS paints so there's no flash of the wrong theme on load.
+    (function () {
+      try {
+        var saved = localStorage.getItem("ticket-ai-theme");
+        if (saved === "light" || saved === "dark") {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css?v={{ static_version }}" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+  <div class="bg-dots"></div>
+
+  <header>
+    <button id="sidebar-toggle" class="icon-btn sidebar-toggle-btn" aria-expanded="false" aria-controls="sidebar" title="Open sidebar">
+      <span class="sidebar-toggle-icon">▤</span>
+    </button>
+    <div class="brand">
+      <div class="brand-icon">🎫</div>
+      <div>
+        <h1>Support Ticket AI</h1>
+        <p class="subtitle">Ask questions to AI Chatbot.</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span id="health-badge" class="badge">checking…</span>
+      <button id="theme-toggle" class="icon-btn" aria-label="Toggle light/dark theme" title="Toggle theme">
+        <span id="theme-toggle-icon">☀️</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+  <aside class="sidebar" id="sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <span class="sidebar-brand"><span class="brand-icon small">🎫</span> Support Ticket AI</span>
+      <button class="icon-btn" id="sidebar-close" aria-label="Close sidebar">✕</button>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="sidebar-item" id="anomaly-toggle" aria-controls="anomaly-overlay">
+        <span class="sidebar-item-icon">📊</span>
+        <span class="sidebar-item-label">Anomaly report</span>
+      </button>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="card chat-card">
+      <div class="chat-header">
+        <div class="avatar bot-avatar">🤖</div>
+        <div>
+          <h2>Ticket Assistant</h2>
+          <p class="chat-sub">Powered by your live ticket data</p>
+        </div>
+        <span class="live-dot" title="Ready"></span>
+      </div>
+
+      <div id="chat-messages" class="chat-messages"></div>
+
+      <form id="query-form" class="composer">
+        <input type="text" id="question-input" placeholder="Ask about your tickets…" autocomplete="off" required />
+        <button type="submit" class="send-btn" aria-label="Send">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 11.5L21 3L13.5 21L11 13L3 11.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="currentColor"/>
+          </svg>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <div class="overlay" id="anomaly-overlay" aria-hidden="true">
+    <div class="overlay-inner">
+      <div class="overlay-header">
+        <h2>📊 Anomaly report</h2>
+        <button class="icon-btn" id="anomaly-close" aria-label="Close anomaly report">✕</button>
+      </div>
+      <div class="anomaly-filter-toggle">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="critical">Critical</button>
+        <button class="filter-btn" data-filter="open">Open status</button>
+      </div>
+      <div id="anomaly-summary" class="summary"></div>
+
+      <h3>⏱ Long resolution times</h3>
+      <div id="anomaly-long-res" class="table-wrap"></div>
+
+      <h3>🚨 Stale unresolved high-priority tickets</h3>
+      <div id="anomaly-stale" class="table-wrap"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>REST API docs: <a href="/docs">/docs</a></p>
+  </footer>
+
+  <script src="/static/app.js?v={{ static_version }}"></script>
+</body>
+</html>
